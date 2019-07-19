@@ -6,7 +6,7 @@ const {lerp} = require('canvas-sketch-util/math')
 let palette = random.pick(palettes);
 
 palette = random.shuffle(palette);
-palette = palette.slice(0, random.rangeFloor(2, palette.length + 1));
+// palette = palette.slice(0, random.rangeFloor(2, palette.length + 1));
 
 const settings = {
   dimensions: [ 1024, 1024 ],
@@ -28,7 +28,7 @@ createObjs = (amount) => {
   }
 }
 
-createObjs(10)
+createObjs(15)
 
 // arr.filter(() => Math.random() > 0.9)
 
@@ -44,7 +44,7 @@ let fps = 24
 
 const sketch = () => {
   return ({ context, width, height }) => {
-    const margin = width * 0.175;
+    const margin = width * 0.015;
     // context.fillStyle = 'black'
     // console.log(context)
     arr.forEach(data => {
@@ -58,8 +58,8 @@ const sketch = () => {
       context.fillStyle = 'white'
       context.fill()
     })
-  };
-};
+  }
+}
 
 
 
@@ -68,4 +68,4 @@ canvasSketch(sketch, settings)
 setInterval(() => {
   expandObjs(arr)
   // canvasSketch(sketch, settings)
-}, 1000/fps/2)
+}, 1000/fps)
