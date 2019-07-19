@@ -17,49 +17,46 @@ let arr = []
 
 createObjs = (amount) => {
   for (let i = 0; i < amount; i++) {
-    let obj = {}
-    obj.color = random.pick(palette)
-    obj.u = i / (amount - 1)
-    obj.v = i / ((amount - 2))
-    obj.radius = Math.abs(30 + 20 * random.gaussian())
-    arr.push(obj)
-    // console.log(obj.radius)
+    for (let j = 0; j < amount; j++) {
+      let obj = {}
+      obj.color = random.pick(palette)
+      obj.u = i / (amount - 1)
+      obj.v = j / (amount - 1)
+      obj.radius = Math.abs(30)
+      arr.push(obj)
+    }
   }
 }
 
-createObjs(30)
+createObjs(10)
 
-arr.filter(() => Math.random() > 0.9)
+// arr.filter(() => Math.random() > 0.9)
 
 expandObjs = (objs) => {
-  // objs.map(obj => {
-  //   obj.radius++
-  // })
-  // console.log(objs)
+  console.log(objs)
   for (let i = 0; i < objs.length; i++) {
-    // objs[i].radius = objs[i].radius + random.range(-2, 2)
-    objs[i].radius = objs[i].radius >= 0 ? objs[i].radius + random.range(-0.5, 0.5) : random.range(1, 15)
+    objs[i].radius = objs[i].radius >= 2 ? objs[i].radius + random.range(-2, 0) : random.range(1, 30)
   }
-  console.log(objs[0].radius)
+  // console.log(objs[0].radius)
 }
 
 let fps = 24
-// console.log(arr)
 
 const sketch = () => {
   return ({ context, width, height }) => {
     const margin = width * 0.175;
-    context.fillStyle = 'black'
-    console.log(context)
+    // context.fillStyle = 'black'
+    // console.log(context)
     arr.forEach(data => {
       const {u, v, color, radius} = data
       const x = lerp(margin, width - margin, u)
       const y = lerp(margin, height - margin, v)
-      // console.log(x, y)
       context.beginPath()
       context.arc(x, y, radius, 0, 2 * Math.PI)
       context.fillStyle = color;
       context.fill();
+      context.fillStyle = 'white'
+      context.fill()
     })
   };
 };
@@ -71,4 +68,4 @@ canvasSketch(sketch, settings)
 setInterval(() => {
   expandObjs(arr)
   // canvasSketch(sketch, settings)
-}, 100/fps)
+}, 1000/fps/2)
